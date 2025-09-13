@@ -1,0 +1,60 @@
+.player-container {
+  padding: var(--space-3) var(--space-6);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-top: 1px solid var(--glass-border);
+}
+
+.slider-container{
+  width: 24%;
+}
+
+/* Container styling */
+.volume-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* Label styling */
+.volume-control label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #f1f1f1;
+  opacity: 60%;
+}
+
+/* Range input styling */
+.volume-control input[type="range"] {
+  width: 150px;
+  height: 4px;
+  background: var(--color-surface-variant);
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--color-primary); /* Rebecca Purple */
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.volume-control input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--color-primary-variant);
+  cursor: pointer;
+}
+

@@ -1,0 +1,51 @@
+<div class="search-container fade-in-up">
+  <h1 class="fade-in-down">🎶 Explore Music</h1>
+
+  <input
+    type="text"
+    class="fade-in"
+    placeholder="🔍 Search for songs, artists..."
+    [(ngModel)]="searchTerm"
+  />
+
+  <div class="song-grid fade-in-up">
+    <app-song-card
+      *ngFor="let song of filteredSongs"
+      [song]="song"
+      [isPlaying]="isPlaying(song)"
+      [isFavorite]="isFavorite(song)"
+      [isInLibrary]="isInLibrary(song)"
+      (play)="playSong(song)"
+      (click)="showSongDetails(song)"
+      (pause)="pauseSong()"
+      (toggleFavorite)="toggleFavorite(song)"
+      (addToLibrary)="addToLibrary(song)"
+      (removeFromLibrary)="removeFromLibrary(song)"
+      (addToPlaylist)="openPlaylistDialog(song)">
+    </app-song-card>
+  </div>
+
+  <!-- Song Details Modal -->
+  <app-song-info
+    *ngIf="selectedSong"
+    [song]="selectedSong"
+    [visible]="showSongCard"
+    (close)="selectedSong = null; showSongCard = false"
+    (play)="playSong($event)"
+    (addToLibrary)="addToLibrary($event)"
+    (toggleFavorite)="toggleFavorite($event)">
+  </app-song-info>
+
+  <div *ngIf="showPlaylistSelector" class="playlist-popup fade-in-up">
+    <h4 class="fade-in">Select a Playlist</h4>
+    <select [(ngModel)]="selectedPlaylistId" class="fade-in-delay-1">
+      <option disabled [ngValue]="null">Select Playlist</option>
+      <option *ngFor="let playlist of playlists" [value]="playlist._id">{{ playlist.name }}</option>
+    </select>
+
+    <div class="actions fade-in-delay-2">
+      <button class="confirm-btn" (click)="confirmAddToPlaylist()">Add</button>
+      <button class="cancel-btn" (click)="cancelPlaylistSelection()">Cancel</button>
+    </div>
+  </div>
+</div>

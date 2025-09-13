@@ -1,0 +1,33 @@
+<div class="home-container">
+  <div class="welcome">
+    <h1 class="fade-in-down">👋 Welcome Back, {{ name }}!</h1>
+    <span class="fade-in-down fade-in-delay-1">Hope you're ready for some great music 🎶</span>
+  </div>
+
+  <div>
+    <div class="section-title fade-in-up">🔥 Trending Songs</div>
+    <div class="card-grid">
+      <div class="card card-appear" *ngFor="let song of trendingSongs">
+        <img [src]="song.coverImageUrl" alt="Trending song" />
+        <div class="card-title">{{ song.title }}</div>
+        <div class="card-subtitle">{{ song.artist }}</div>
+        <!-- Play/Pause Button -->
+        <button class="play-pause-btn push-effect" (click)="togglePlayPause(song)">
+          <span class="material-icons" *ngIf="!isSongPlaying(song)">play_arrow</span>
+          <span class="material-icons" *ngIf="isSongPlaying(song)">pause</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-title fade-in-up">💿 Albums</div>
+    <div class="card-grid">
+      <div class="card card-appear" *ngFor="let album of albums">
+        <img [src]="album.coverImageUrl" alt="Album cover" />
+        <div class="card-title">{{ album.name | uppercase }}</div>
+        <div class="card-subtitle">{{ album.artist }}</div>
+      </div>
+    </div>
+  </div>
+</div>

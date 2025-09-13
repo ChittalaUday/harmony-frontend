@@ -1,0 +1,17 @@
+<!-- song-recommendations.component.html -->
+<div class="recommendations-container">
+  <h2>Song Recommendations</h2>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="recommendations.length === 0" class="no-recommendations-message">
+    No recommendations available.
+  </div>
+  <ul *ngIf="recommendations.length > 0">
+    <li *ngFor="let song of recommendations">
+      <h3>{{ song.title }}</h3>
+      <p>{{ song.artist }}</p>
+      <button (click)="playSong(song.id)">Play</button>
+    </li>
+  </ul>
+</div>

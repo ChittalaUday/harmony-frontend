@@ -1,0 +1,22 @@
+<!-- Library Container -->
+<div class="library-container fade-in">
+  <h2>📚 Your Library</h2>
+
+  <!-- Upload Container -->
+  <div class="upload-container">
+    <button class="upload-button btn-animate" (click)="togglePLaylist()">
+      <span class="material-icons">playlist_add</span>
+      {{ showPlaylist ? 'Cancel Playlist' : 'New Playlist' }}
+    </button>
+    <button class="upload-button btn-animate" (click)="toggleUploader()">
+      <span class="material-icons">add</span>
+      {{ showUploader ? 'Cancel Upload' : 'Upload Song' }}
+    </button>
+  </div>
+
+  <!-- Playlist Component -->
+  <app-playlist class="slide-in-left fade-in" *ngIf="!showPlaylist"></app-playlist>
+
+  <!-- Upload Song Component -->
+  <app-upload-song *ngIf="showUploader" class="fade-in-up"></app-upload-song>
+</div>

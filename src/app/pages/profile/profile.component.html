@@ -1,0 +1,97 @@
+<div class="profile-container fade-in">
+  <h1 class="fade-in-down">👤 Profile</h1>
+
+  <!-- View Mode -->
+  <div *ngIf="!editMode" class="fade-in-up">
+    <div class="profile-header fade-in-up">
+      <img class="avatar fade-in" [src]="profileData.profilePicture" alt="User Avatar" />
+      <div>
+        <h2 class="fade-in">{{ profileData.name }} 👋</h2>
+        <p class="fade-in-delay-1">{{ profileData.email }}</p>
+        <p class="fade-in-delay-2" *ngIf="profileData.gender">{{ profileData.gender }}</p>
+        <p class="fade-in-delay-2" *ngIf="profileData.dateofBirth">Born: {{ profileData.dob | date:'mediumDate' }}</p>
+      </div>
+    </div>
+
+    <div class="bio-section fade-in-up" *ngIf="profileData.bio">
+      <h3>About Me</h3>
+      <p>{{ profileData.bio }}</p>
+    </div>
+
+    <div class="profile-stats fade-in-up">
+      <div class="stat-card fade-in" *ngFor="let stat of ['playlists', 'liked', 'uploads']; let i = index">
+        <span>{{ stat === 'playlists' ? '🎵' : stat === 'liked' ? '❤️' : '📤' }}</span>
+        <div>
+          <h3>{{ user.stats[stat] }}</h3>
+          <p>{{ stat | titlecase }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons fade-in-up">
+      <button (click)="toggleEditMode()">Edit Profile ✏️</button>
+      <button class="logout" (click)="logout()">Log Out 🚪</button>
+    </div>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="editMode" class="edit-profile-form fade-in-up">
+    <h2>Edit Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+      <div class="form-group avatar-upload fade-in">
+        <img [src]="profileForm.get('profilePicture')?.value || user.avatar || 'https://placehold.co/600x400'" alt="User Avatar" class="avatar" />
+        <div class="upload-controls">
+          <label for="avatar-upload" class="upload-button">Change Photo</label>
+          <input
+            type="file"
+            id="avatar-upload"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+        </div>
+      </div>
+
+      <div class="form-group fade-in-delay-1">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="Your name" />
+        <div class="error-message" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group fade-in-delay-2">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Your email" />
+        <div class="error-message" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="form-group fade-in-delay-3">
+        <label for="gender">Gender</label>
+        <select id="gender" formControlName="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group fade-in-delay-4">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" formControlName="dob" />
+      </div>
+
+      <div class="form-group fade-in-delay-5">
+        <label for="bio">Bio</label>
+        <textarea id="bio" formControlName="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+      </div>
+
+      <div class="form-buttons fade-in-up">
+        <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+        <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

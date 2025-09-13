@@ -1,0 +1,71 @@
+<!-- Liked Songs Container -->
+<div *ngIf="!loading" class="liked-container fade-in">
+  <h1>❤️ Liked Songs</h1>
+
+  <!-- Liked Songs Table -->
+  <div *ngIf="likedSongs.length > 0" class="songs-table card mt-4 fade-in">
+
+    <!-- Table Header -->
+    <div class="table-header">
+      <div class="table-cell cell-num">#</div>
+      <div class="table-cell cell-title">Title</div>
+      <div class="table-cell cell-artist">Artist</div>
+      <div class="table-cell cell-album">Album</div>
+      <div class="table-cell cell-year">Year</div>
+      <div class="table-cell cell-actions">Actions</div>
+    </div>
+
+    <!-- Table Body -->
+    <div class="table-body">
+      <div
+        *ngFor="let song of likedSongs; let i = index"
+        class="table-row"
+        [ngClass]="'slide-in-left'"
+        [style.animation-delay]="(i * 0.05) + 's'"
+      >
+        <div class="table-cell cell-num">{{ i + 1 }}</div>
+
+        <!-- Title + Cover -->
+        <div class="table-cell cell-title flex items-center gap-3">
+          <img
+            [src]="song.coverImageUrl || 'assets/default-cover.jpg'"
+            alt="Cover"
+            class="song-cover"
+          />
+          <span>{{ song.title }}</span>
+        </div>
+
+        <div class="table-cell cell-artist">
+          {{ song.artist || song.artists.join(', ') }}
+        </div>
+        <div class="table-cell cell-album">{{ song.album || 'Unknown' }}</div>
+        <div class="table-cell cell-year">{{ song.year || '—' }}</div>
+
+        <!-- Action Buttons -->
+        <div class="table-cell cell-actions">
+          <div class="track-actions flex items-center gap-2">
+            <button
+              class="control-btn btn-animate delete"
+              (click)="removeFromLiked(song._id!)"
+              aria-label="Remove song"
+            >
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="likedSongs.length === 0"
+    class="liked-container glass-panel flex flex-col items-center justify-center mt-4 fade-in"
+  >
+    <div class="icon-container mb-4">
+      <i class="material-icons">music_off</i>
+    </div>
+    <h3 class="subtitle-1">No liked songs</h3>
+    <p class="body-2 text-dim">You haven't liked any songs yet. ❤️</p>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="glass-panel player-container">
+  <div class="flex items-center justify-between w-full gap-4">
+    <!-- Song Info -->
+    <div class="flex items-center gap-4">
+      <div class="album-artwork" style="width: 48px; height: 48px;">
+        <img [src]="albumArtwork" alt="Album Art">
+      </div>
+      <div>
+        <div class="track-title">{{ songTitle }}</div>
+        <div class="artist-name">{{ artist }}</div>
+      </div>
+    </div>
+
+    <!-- Player Controls -->
+    <div class="player-controls">
+      <button class="control-btn" (click)="skipToPrevious()"><span>&laquo;</span></button>
+      <button class="control-btn play-pause" (click)="togglePlayPause()">
+        <span *ngIf="!isPlaying">&#9654;</span>
+        <span *ngIf="isPlaying">&#10073;&#10073;</span>
+      </button>
+      <button class="control-btn" (click)="skipToNext()"><span>&raquo;</span></button>
+    </div>
+
+    <!-- Time and Progress -->
+    <div class="slider-container flex-col items-end">
+      <div class="flex justify-between text-xs timestamp w-full">
+        <span>{{currentTime | formatDuration}}</span>
+
+        <span>{{ duration |formatDuration }}</span>
+      </div>
+      <input type="range" class="slider" [value]="progress" (input)="seek($event)" />
+    </div>
+
+  <!-- Volume Control -->
+  <div class="volume-control">
+    <label for="volume">Volume</label>
+    <input id="volume" type="range" min="0" max="1" step="0.01" (input)="setVolume($event)" />
+  </div>
+
+</div>
+
+</div>
