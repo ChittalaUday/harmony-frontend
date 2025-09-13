@@ -3,19 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import * as jwt_decode from 'jwt-decode'; // You may need to install this package
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000'; // Base URL for API
+  private apiUrl = environment.apiUrl; // Base URL for API
   private loginUrl = `${this.apiUrl}/login`; // Login URL
   private registerUrl = `${this.apiUrl}/register`; // Register URL
 
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   // Login method
   login(email: string, password: string): Observable<any> {
@@ -74,7 +75,7 @@ export class AuthService {
   }
 
   // Log out the user
-  logout():Boolean{
+  logout(): Boolean {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
       return true;

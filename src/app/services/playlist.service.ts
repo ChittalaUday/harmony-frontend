@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 export interface Playlist {
   _id?: string;
   name: string;
@@ -15,9 +15,9 @@ export interface Playlist {
   providedIn: 'root'
 })
 export class PlaylistService {
-  private baseUrl = 'http://localhost:5000/playlist';
+  private baseUrl = environment.apiUrl + '/playlist';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createPlaylist(playlist: Playlist): Observable<Playlist> {
     return this.http.post<Playlist>(`${this.baseUrl}`, playlist);

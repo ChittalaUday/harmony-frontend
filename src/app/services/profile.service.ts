@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
+import { environment } from '../../environments/environment';
 interface UserProfile {
-  _id:string;
+  _id: string;
   userId: string;
   name: string;
   email: string;
@@ -20,9 +20,9 @@ interface UserProfile {
 })
 export class ProfileService {
 
-  private baseUrl = 'http://localhost:5000/me';  // Assuming endpoint is /me/:id
+  private baseUrl = environment.apiUrl + '/me';  // Assuming endpoint is /me/:id
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Utility to get user ID from localStorage
   private getUserId(): string {

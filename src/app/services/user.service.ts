@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-const API_URL = 'http://localhost:5000';
+import { environment } from '../../environments/environment';
+const API_URL = environment.apiUrl;
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export class UserService {
   private favoritesSubject = new BehaviorSubject<string[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /** Load user's favorites from backend and update observable */
   loadFavorites(userId: string): void {

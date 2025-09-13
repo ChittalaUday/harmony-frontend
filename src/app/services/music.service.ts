@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Song } from './song.service';
+import { environment } from '../../environments/environment';
 
 export interface Album {
   _id: string;
   name: string;
   artist: string;
   songs: Song[];
-  coverImageUrl:String;
+  coverImageUrl: String;
 }
 
 export interface TrendingSong extends Song {
@@ -26,9 +27,9 @@ export interface TrendingSong extends Song {
   providedIn: 'root',
 })
 export class MusicService {
-  private apiUrl = 'http://localhost:5000/music'; // Adjusted the API URL to match your backend route
+  private apiUrl = environment.apiUrl + '/music'; // Adjusted the API URL to match your backend route
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   /** Play a song (increases play count and tracks trending) */
   playSong(songId: string, userId?: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/play/${songId}`, { userId });
